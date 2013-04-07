@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language id="de">
+	<entry id="add">hinzufügen</entry>
+	<entry id="create">anlegen</entry>
+	<entry id="delete">löschen</entry>
+	<entry id="save">speichern</entry>
+	<entry id="edit">ändern</entry>
+	<entry id="back">zurück</entry>
+	<entry id="reset">zurücksetzen</entry>
+	<entry id="next">weiter</entry>
+	<entry id="notown">Dieser Eintrag gehört nicht Ihnen.</entry>
+	<entry id="changedone">Die Änderung wurde durchgeführt.</entry>
+</language>

@@ -1,0 +1,20 @@
+<h1>Domain</h1>
+<h2><icon:globe--plus> neue Subdomain anlegen <qt:subdomain></h2>
+{{text}}
+
+Vorschau: <span style="margin-left:15px; font-weight:bold;" id="preview" ></span>
+<br /><br />
+<br />
+{{form}}
+<script>
+$('#domain_id').change(function() {
+  $('#preview').html($('#name').val() +'.'+ $('#domain_id option:selected').text());
+  $('#previewh').val($('#name').val() +'.'+ $('#domain_id option:selected').text());
+});
+$('#name').keyup(function() {
+  $('#preview').html($('#name').val() + '.'+ $('#domain_id option:selected').text());
+  $('#previewh').val($('#name').val() +'.'+ $('#domain_id option:selected').text());
+});
+$('#preview').html($('#name').val() + '.'+ $('#domain_id option:selected').text());
+  $('#previewh').val($('#name').val() +'.'+ $('#domain_id option:selected').text());
+</script>

@@ -1,0 +1,11 @@
+<h1>FTP Benutzer</h1>
+<h2>"{{username}}" - Einstellungen ändern</h2>
+{{text}}
+<br />
+{{form}}
+<script>
+	$( "#homedir" ).autocomplete({
+      source: "{{AjaxSource}}",
+      minLength: 1
+    });
+</script>

@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<quicktips>
+	<item id="customer_data">Diese Daten sind für die Domain rechtlich hinterlegt. Bitte lassen Sie diese durch ihren Anbieter aktualisieren, sobald sich Angaben ändern.</item>
+	<item id="security">Das System speichert fehlgeschlagene Loginversuche ab.</item>
+</quicktips>

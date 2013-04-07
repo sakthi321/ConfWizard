@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<help>
+	<categorie id ="main" title="Allgemein">
+		<item>
+			<question>Was ist ConfWizard?
+			</question>
+			<answer>ConfWizard ist eine grafische Weboberfläche mit der Sie Dienste, wie FTP, Domains, MySQL einfach verwalten können.
+
+			Die einzelnen Möglichkeiten entnehmen Sie bitte aus den einzelnen Beschreibungen.
+			</answer>
+		</item>
+		<item>
+			<question>Warum treten manche Änderungen zeitlich verzögert ein?
+			</question>
+			<answer>Aus Sicherheitsgründen ist ConfWizard ein zweigeteiltes System bestehend aus einem Frontend, welches Sie gerade benutzen und einem Systembot, der die Änderungen auf dem System durchführt. Kritischen Einstellungen, wie FTP Zugänge, Domainverwaltung, Cronjobs werden somit je nach Einstellung des Servers zeitlich versetzt eingepflegt. Ob eine Änderung durchgeführt wurde erkennen Sie am entsprechendem Symbol in der Tabelle.
+			</answer>
+		</item>
+	</categorie>
+	<categorie id ="user" title="Benutzer">
+		<item>
+			<question>
+			Was ist ein Benutzer?
+			</question>
+			<answer>Ein Benutzer ist eine Pseudonym für einen Zugriff auf das System. In diesem Sinne ist ein Benutzer eine Person oder Gruppe (z.B. Verein) , die sich einen Account teilen. Im Gegensatz dazu ist ein Kunde eine physisch existierende Person mit Kontaktdaten, der der Zugang gehört und die auch die Rechnung bezahlt.
+			</answer>
+		</item>
+	</categorie>
+	<categorie id ="offers" title="Angebotsvorlagen">
+		<item uid="offerstemplate">
+			<question>
+			Was ist eine Angebotsvorlage?
+			</question>
+			<answer>Gewöhnlich haben Benutzer unterschiedliche zugewiesene Kapazitäten (Anzahl von MySQL Datenbanken, FTP Zugänge). Sofern Sie einen Unterbenutzer anlegen dürfen legen Sie mit eienr Angebotsvorlage fest, welche Ressourcen der Unterbenutzer erhält. Bitte beachten Sie, dass die zugewiesenen Ressourcen sofort von Ihren Ressourcen abgezogen werden.
+			</answer>
+		</item>
+	</categorie>
+	<categorie id ="domains" title="Domains">
+	</categorie>
+</help>

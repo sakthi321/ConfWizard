@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language id="de">
+	<entry id="Add">Benutzer anlegen</entry>
+	<entry id="changemail">Email ändern</entry>
+	<entry id="changepassword">Passwort ändern</entry>
+	<entry id="Edit">Benutzer bearbeiten</entry>
+	<entry id="passwordstrength">Ein sichereres Passwort besteht aus Groß- und Kleinschreibung, sowie Buchstaben und Sonderzeichen.</entry>
+	<entry id="passwordmatch">Muss mit vorherigen Passwort übereinstimmen.</entry>
+	<entry id="CapacityExceeded">keine weiteren Benutzer möglich</entry>
+	<entry id="subusersection"><![CDATA[<h2>Benutzerdaten von Unterbenutzern <qt:subuser></h2>
+<p>Kapazität:</p>
+{{usercapacity}}
+<p>Sie haben noch {{numberofpossibleoffers}} Hostingpläne für Unterbenutzer, die entsprechend ihren Kapazitäten verfügbar sind. Diese Pläne sind <i>{{possibleoffers}}</i>.</p>
+<p>Verwalten Sie hier ihre Unterbenutzer.</p>
+{{subuserlistview}}
+<br />
+{{add_user}} ]]></entry>
+</language>

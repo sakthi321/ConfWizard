@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quicktips>
+	<item id="commonName">Geben Sie den exakten Domainnamen inkl. Subdomains an, z.B. www.example.tld</item>
+	<item id="organizationName">Name ihrer Organisation, Firma oder Einrichtung</item>
+	<item id="organizationalUnitName">Abteilung innerhalb der Organisation. Kann leer bleiben.</item>
+	<item id="localityName">Stadt, in der die Organisation sitzt.</item>
+	<item id="countryName">Land, in dem die Organisation sitzt.</item>
+	<item id="stateOrProvinceName">Bundesland, Provinz oder Kanton in dem die Organisation sitzt</item>
+	<item id="emailAddress">gültige Emailadresse zur Kontaktaufnahme.</item>
+</quicktips>

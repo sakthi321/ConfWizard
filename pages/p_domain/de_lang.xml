@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language id="de">
+	<entry id="DomainCapacity">Verbauch von Domains</entry>
+	<entry id="SubDomainCapacity">Subdomainkapazitäten</entry>
+	<entry id="DomainCapacitySelf"><![CDATA[Domainkapazitäten im Eigengebrauch davon sind <b>{{capacityself}}</b> die anderen <b>{{capacitychilds}}</b> sind für einen Unterbenutzern bereits angelegt.]]></entry>
+	<entry id="SubDomainCapacitySelf"><![CDATA[Subdomainkapazitäten im Eigengebrauch davon sind <b>{{subcapacityself}}</b> die anderen <b>{{subcapacitychilds}}</b> sind für Ihre Unterbenutzern reserviert.]]></entry>
+	<entry id="SubDomainCapacityExceeded">Sie können keine weitere Subdomains anlegen</entry>
+	<entry id="DomainCapacityExceeded">Sie können keine weitere Domains anlegen</entry>
+	<entry id="AddDomain">Domain anlegen</entry>
+	<entry id="AddSubdomain">Subdomain anlegen</entry>
+	<entry id="WrongDomainId">Diese Domain kann nicht bearbeitet werden, da diese nicht Ihnen gehört.</entry>
+	<entry id="WrongSubDomainId">Diese Subdomain kann nicht bearbeitet werden, da diese nicht Ihnen gehört.</entry>
+	<entry id="SubdomainWasInsert">Die Subdomain wurde angelegt.</entry>
+	<entry id="DomainWasInsert">Die Domain wurde angelegt.</entry>
+	<entry id="SubdomainWasUpdate">Die Subdomain wurde geändert.</entry>
+	<entry id="DomainWasUpdate">Die Domain wurde geändert.</entry>
+	<entry id="SubDomainWasUpdate">Die Subdomain wurde geändert.</entry>
+	<entry id="DomainWasInsert">Die Domain wurde angelegt.</entry>
+	<entry id="domain_redirect">Domaineinstellungen (Weiterleitung)</entry>
+	<entry id="domain_host">Domaineinstellungen (Hosting)</entry>
+	<entry id="SubWillDeleted">Subdomain wurde zum löschen markiert</entry>
+</language>

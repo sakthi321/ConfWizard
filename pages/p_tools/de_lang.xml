@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language id="de">
+
+	<entry id="commonName">exakter Urlname (CN)</entry>
+	<entry id="organizationName">Name der Organisation (O)</entry>
+	<entry id="organizationalUnitName">Organisations Unit Name (OU)</entry>
+	<entry id="localityName">Stadt (L)</entry>
+	<entry id="countryName">Land (C)</entry>
+	<entry id="stateOrProvinceName">Bundesland (ST)</entry>
+	<entry id="emailAddress">Email</entry>
+	<entry id="csr_request">Zertifikat anfordern</entry>
+
+	<entry id="keystrength">Schlüsselgröße</entry>
+	<entry id="create_key">Schlüssel erstellen</entry>
+	<entry id="import_key">Schlüssel importieren</entry>
+
+	<entry id="create_csr">CSR Request erstellen</entry>
+
+
+
+	<entry id="surname">Zuname</entry>
+	<entry id="street">Strasse und H-nr.</entry>
+	<entry id="zip">PLZ und Ort</entry>
+	<entry id="phone">Telefon</entry>
+	<entry id="mobile">Handy</entry>
+	<entry id="fax">Fax</entry>
+	<entry id="email">Email</entry>
+	<entry id="website">Webseite</entry>
+</language>

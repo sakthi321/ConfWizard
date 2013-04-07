@@ -1,0 +1,577 @@
+@charset "UTF-8";
+/**
+*   ____             ____        ___                  _
+*  / ___|___  _ __  / _\ \      / (_)______ _ _ __ __| |
+* | |   / _ \| '_ \| |_ \ \ /\ / /| |_  / _` | '__/ _` |
+* | |__| (_) | | | |  _| \ V  V / | |/ / (_| | | | (_| |
+*  \____\___/|_| |_|_|    \_/\_/  |_/___\__,_|_|  \__,_|
+*
+* This file is part of the Confwizard project.
+* Copyright (c) 2013 Patrick Wieschollek
+*
+* For the full copyright and license information, please view the COPYING
+* file that was distributed with this source code. You can also view the
+* COPYING file online at http://integralstudio.net/license.txt
+*
+* @package    ConfWizard
+* @copyright  2013 (c) Patrick Wieschollek
+* @author     Patrick Wieschollek <wieschoo@gmail.com>
+* @link       http://www.integralstudio.net/
+* @license    GPLv3 http://integralstudio.net/license.txt
+*
+*/
+
+/* ----------------------------- COMMON STYLES ------------------------------------ */
+
+* {
+	border:none;
+	border:0;
+}
+
+html
+{
+	overflow-x: hidden;
+	min-height: 100%;
+}
+
+body
+{
+	font-family: opensansregular, Verdana, Arial;
+	font-size: 10pt;
+	padding: 0px;
+	margin: 0px;
+	color: #254264;
+	min-height:100%;
+	overflow-x: hidden;
+	overflow-y: hidden;
+	background-color:#FFFFFF;
+    background:url('bg.gif');
+	color:rgb(102, 102, 102);
+	height:70px;
+}
+
+
+a{
+	text-decoration:none;
+    	color:#333333;
+}
+
+a:hover
+{
+
+	color:#0084FF;
+}
+
+/* ----------------------------- OTHER STYLES ------------------------------------- */
+.contentbox{
+    margin-top:25px;
+    margin-bottom:15px;
+}
+
+.progress-bar {
+    border: 1px solid #263849;
+    height: 14px;
+    padding: 1px;
+    margin: 0;
+    background-color: #fff;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    padding-right:3px;
+    font-family: Arial;
+}
+
+.progress-bar .label {
+    position: absolute;
+    text-align: center;
+    font-size: 10px;
+    height: 14px;
+    line-height: 14px;
+    color: #333;
+    font-family: Arial;
+}
+
+.progress-bar .fill {
+    position: relative;
+    border: 1px solid #263849;
+    background: #263849;
+    overflow: hidden;
+    height: 12px;
+
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    font-family: Arial;
+}
+
+.progress-bar .fill .label {
+  margin-top: -1px;
+  color: #fff;
+  font-family: Arial;
+}
+
+.line{ background: url('line.gif') bottom left repeat-x; margin-bottom: 30px; }
+.errormsg{
+    color:red;
+    font-size:8px;
+}
+/* ============================= PAGE AREAS ======================================- */
+/* ----------------------------- TOP AREA ----------------------------------------- */
+#top{
+	top:0;
+    background-color:#263849;
+	height:65px;
+	background:url(topbg2.png) repeat-x;
+	border-bottom:#CFCFCF 1px solid;}
+/* ----------------------------- MIDDLE AREA -------------------------------------- */
+#middle{
+	position:absolute;
+	top:65px;
+	height:100%;
+	width:100%;
+}
+#text{
+    width:100%;
+}
+/* ----------------------------- LEFTNAVIGATION AREA ------------------------------ */
+#nav{
+	background:#e4e7ea;
+	width:210px;
+	border-right:#CCC 1px solid;
+	padding:20px;
+	vertical-align:top;
+	background: #101010;
+	background:url(nav.png);
+}
+#nav ul{
+	list-style:none;
+
+}
+#nav a{
+	text-decoration:none;
+	color: #CCC;
+}
+#nav img{
+	margin-right:7px;
+}
+#nav li{
+	margin-right:-21px;
+	margin-left:-30px;
+	list-style:none; height:16px;
+	padding:10px;
+	padding-top:11px;
+	padding-left:11px;
+	cursor:pointer;
+}
+#nav li:hover{
+	background:#FFF;
+	margin-right:-21px;
+	margin-left:-30px;
+	list-style:none; height:15px;
+	padding:10px;
+	border-radius: 5px 0px 0px 5px;
+	-moz-border-radius: 5px 0px 0px 5px;
+	-webkit-border-radius: 5px 0px 0px 5px;
+	border: 1px solid #263849;
+	border-right: 1px solid #FAFAFA;
+	color: #254264;
+    background:url('bg.gif');
+
+}
+#nav .active a{
+    color:#FFF;
+    }
+#nav li:hover  a{
+    color: #254264;
+    }
+#nav .active{
+	background:#F00;
+	margin-right:-20px;
+	margin-left:-30px;
+	list-style:none; height:15px;
+	padding:10px;
+	border-radius: 5px 0px 0px 5px;
+	-moz-border-radius: 5px 0px 0px 5px;
+	-webkit-border-radius: 5px 0px 0px 5px;
+	border: 1px solid #263849;
+	border-right:none;
+	color:#FFF;
+    background: rgb(38,56,73); /* Old browsers */
+/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzI2Mzg0OSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMzNTZhYTAiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+background: -moz-linear-gradient(left,  rgba(38,56,73,1) 0%, rgba(53,106,160,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(38,56,73,1)), color-stop(100%,rgba(53,106,160,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(left,  rgba(38,56,73,1) 0%,rgba(53,106,160,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(left,  rgba(38,56,73,1) 0%,rgba(53,106,160,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(left,  rgba(38,56,73,1) 0%,rgba(53,106,160,1) 100%); /* IE10+ */
+background: linear-gradient(to right,  rgba(38,56,73,1) 0%,rgba(53,106,160,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#263849', endColorstr='#356aa0',GradientType=1 ); /* IE6-8 */
+
+}
+#nav h3{
+	font-style: normal;
+	font-variant: normal;
+	font-weight: normal;
+	font-family: opensanslight, sans-serif;
+	color:#fff;
+}
+/* ----------------------------- CONTENT AREA ------------------------------------- */
+#content{
+	padding-left:40px;
+	padding:40px;
+	padding-top:20px;
+	vertical-align:top;
+}
+#content h1, #content h2, #content h3 {
+	font-style: normal;
+	font-variant: normal;
+	font-weight: normal;
+    font-family: opensanslight, Helvetica, Garuda, Arial, sans-serif;
+}
+#content h1
+{
+	font-size: 28px;
+	height: 26px;
+	line-height: 26px;
+}
+#content h2
+{
+	font-size: 12pt;
+}
+#content h3
+{
+	font-size: 11pt;
+}
+#content ul{
+	list-style-type: none;
+}
+#content ul li:before {
+	content: "\2023 \0020";
+}
+#content .code {
+	padding: 5px;
+	background-color: #EEE;
+	color: #333;
+	line-height: 120%;
+	border: 1px solid #ACE;
+	border-left: none;
+	border-right: none;
+	width:100%;
+}
+#content table{
+    width:100%;
+    border:none;
+	border-collapse:collapse;
+}
+#content table thead{
+    background: #263849;
+    color:white;
+    font-weight:normal;
+}
+#content table tbody{
+    border-bottom:1px #eee solid;
+}
+#content table tbody td{
+    padding: 5px;
+}
+#content table thead th{
+    font-weight:normal;
+    padding: 5px 10px 5px 10px;
+    text-align:left;
+}
+#content tr{
+    border-top: 1px solid white;
+}
+#content tbody .even {
+    background-color: #eee;
+    border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+}
+#content tbody .odd {
+	background-color:#f8f8f8;
+    border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+}
+#content tbody tr:nth-child(even) {
+    background-color: #eee;
+    border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+}
+#content tbody tr:nth-child(odd) {
+	background-color:#f8f8f8;
+    border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+}
+
+#content table tbody .even:hover, #content .odd:hover,#content table tbody tr:hover{
+    background-color:#E5F5FF;
+    border-top:1px solid #ACE;
+    border-bottom:1px solid #ACE;
+	cursor:pointer;
+
+}
+
+#content table img{
+    margin-right:9px;
+}
+#content table a:hover{
+    text-decoration:none;
+}
+/* ----------------------------- BOTTOM AREA -------------------------------------- */
+#bottom{
+	position:fixed;
+	bottom:0;
+	height:20px;
+	width:100%;
+	background-color:#FFF;
+	background:#e4e7ea;
+	padding-top:2px;
+    text-align:right;
+	font-size:9px;
+}
+
+/* ----------------------------- ALERTBOXES --------------------------------------- */
+.infomessage, .successmessage, .warningmessage, .errormessage {
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    padding: 5px;
+	width:96%;
+    padding-left:2%;
+	padding-right:2%;
+    margin-bottom:10px;
+}
+.infomessage {
+    color: #00529B;
+    border-color:#50B0EC;
+    background-color: #dce6f3;
+}
+.successmessage {
+    background: #ddf4ce;
+    border-color: #72CB67;
+}
+.warningmessage {
+    background: #f1eebf;
+    border-color: #D3C200;
+}
+.errormessage {
+    border-color: #EC9B9B;
+    background: #f5dcdd;
+}
+/* ----------------------------- FORM ELEMENTS ------------------------------------ */
+.FormRow{
+    width:100%;
+    display:block;
+}
+.FormLabel{
+    display:inline-block;
+    width:120px;
+    margin:5px 0;
+    margin-right:80px;
+    align:left;
+}
+
+form{
+    background-color: #e6e6e6;
+    padding:10px;
+    padding: 5px;
+	background-color: #EEE;
+	color: #333;
+	line-height: 120%;
+	border: 1px solid #ccc;
+	border-left: none;
+	border-right: none;
+	width:95%;
+    padding-left:5%;
+
+}
+input, textarea, select{
+	    font-family: opensansregular;
+	    font-size: 13px;
+	    margin-bottom: 5px;
+	    padding: 2px;
+}
+input, textarea, select, .btnLink{
+	border-radius:6px;
+}
+
+
+input[type=text],input[type=password],input[type=email],textarea{
+    border: 1px solid rgb(184, 184, 184);;
+    border-radius:6px;
+	vertical-align:top;
+}
+input[type=text]:focus,input[type=password]:focus,input[type=email]:focus,textarea:focus{
+    background-color:#E5F5FF;
+    border-top:1px solid #ACE;
+    border-bottom:1px solid #ACE;
+}
+select{
+    border: 1px solid #ccc;
+    border-radius:6px;
+}
+input[type="submit"] {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #7d458e), color-stop(1, #462859) );
+	background:-moz-linear-gradient( center top, #7d458e 5%, #462859 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#7d458e', endColorstr='#462859');
+	background-color:#7d458e;
+	background: rgb(53,106,160); /* Old browsers */
+/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzM1NmFhMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMyNjM4NDkiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+background: -moz-linear-gradient(top,  rgba(53,106,160,1) 0%, rgba(38,56,73,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(53,106,160,1)), color-stop(100%,rgba(38,56,73,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  rgba(53,106,160,1) 0%,rgba(38,56,73,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  rgba(53,106,160,1) 0%,rgba(38,56,73,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  rgba(53,106,160,1) 0%,rgba(38,56,73,1) 100%); /* IE10+ */
+background: linear-gradient(to bottom,  rgba(53,106,160,1) 0%,rgba(38,56,73,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#356aa0', endColorstr='#263849',GradientType=0 ); /* IE6-8 */
+
+
+
+
+
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+    border-radius:3px;
+	border:1px solid #ffffff;
+	display:inline-block;
+	color:#ffffff;
+	font-family:arial;
+	font-size:12px;
+	font-weight:normal;
+	padding:4px 14px;
+	text-decoration:none;
+}
+input[type="submit"]:hover {
+	background: rgb(38,56,73); /* Old browsers */
+/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzI2Mzg0OSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMzNTZhYTAiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+background: -moz-linear-gradient(top,  rgba(38,56,73,1) 0%, rgba(53,106,160,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(38,56,73,1)), color-stop(100%,rgba(53,106,160,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  rgba(38,56,73,1) 0%,rgba(53,106,160,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  rgba(38,56,73,1) 0%,rgba(53,106,160,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  rgba(38,56,73,1) 0%,rgba(53,106,160,1) 100%); /* IE10+ */
+background: linear-gradient(to bottom,  rgba(38,56,73,1) 0%,rgba(53,106,160,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#263849', endColorstr='#356aa0',GradientType=0 ); /* IE6-8 */
+
+
+
+
+
+    cursor: pointer;
+}
+input[type="submit"]:active {
+	position:relative;
+	top:1px;
+}
+
+input[type="button"],input[type="reset"], .btnLink {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ffffff), color-stop(1, #cccccc) );
+	background:-moz-linear-gradient( center top, #ffffff 5%, #cccccc 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#cccccc');
+	background-color:#ffffff;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+    border-radius:3px;
+	border:1px solid #787878;
+	display:inline-block;
+	color:#000000;
+	font-family:arial;
+	font-size:12px;
+	font-weight:normal;
+	padding:3px 12px;
+	text-decoration:none;
+}
+input[type="button"]:hover,input[type="reset"]:hover, .btnLink:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #cccccc), color-stop(1, #ffffff) );
+	background:-moz-linear-gradient( center top, #cccccc 5%, #ffffff 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#cccccc', endColorstr='#ffffff');
+	background-color:#cccccc;
+	color:#000;
+    cursor: pointer;
+    text-decoration:none;
+}
+input[type="button"]:active, input[type="reset"]:active {
+	position:relative;
+	top:1px;
+}
+input:focus{
+	/*
+}, textarea:focus { /* add this to the already existing style */
+/*	padding-right:70px;
+	-moz-transition: padding .25s;
+	-webkit-transition: padding .25s;
+	-o-transition: padding .25s;
+	transition: padding .25s;*/
+}
+input[readonly="readonly"],textarea[readonly="readonly"]
+{
+	background-color:#e6e6e6;
+}
+
+::-webkit-validation-bubble-message {
+	padding: 1em;
+}
+input:focus:invalid{
+	 /*
+}, textarea:focus:invalid { /* when a field is considered invalid by the browser */
+	box-shadow: 0 0 5px #d45252;
+/*	border-color: #b03535;*/
+}
+input:focus:valid{
+	/*
+},  textarea:focus:valid { /* when a field is considered valid by the browser */
+	box-shadow: 0 0 5px #5cd053;
+/*	border-color: #28921f;*/
+}
+.input_error{
+	box-shadow: 0 0 5px #d45252;
+	/*	border-color: #b03535;*/
+}
+.input_ok{
+	box-shadow: 0 0 5px #5cd053;
+	/*	border-color: #28921f;*/
+}
+.btnLink img{
+    margin-right:9px;
+}
+label.error {
+	color:red;
+	font-size:8px;
+}
+input.error {
+	box-shadow: 0 0 5px #d45252;
+	border-color: #b03535;
+}
+img{
+	border:none;
+	border:0;
+}
+:-moz-placeholder,::-webkit-input-placeholder {
+	color: #535353;
+}
+*:focus {outline: none;}
+.form_hint {
+	background: #d45252;
+	border-radius: 3px 3px 3px 3px;
+	color: white;
+	margin-left:8px;
+	padding: 1px 6px;
+	z-index: 999; /* hints stay above all other elements */
+	position: absolute; /* allows proper formatting if hint is two lines */
+	display: none;
+}
+.form_hint::before {
+	content: "\25C0"; /* left point triangle in escaped unicode */
+	color:#d45252;
+	position: absolute;
+	top:1px;
+	left:-6px;
+}
+input:focus + .form_hint {display: inline;}
+input:required:valid + .form_hint {background: #28921f;} /* change form hint color when valid */
+input:required:valid + .form_hint::before {color:#28921f;} /* change form hint arrow color when valid */

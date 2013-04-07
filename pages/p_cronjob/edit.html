@@ -1,0 +1,17 @@
+<h1>Cronjob</h1>
+<h2>Einstellungen ändern</h2>
+{{text}}
+<br />
+{{form}}
+<script type="text/javascript">
+    $(document).ready(function() {
+        
+        $('#selector').cron({
+    initial: "{{init}}",
+    onChange: function() {
+        $('#format').val($(this).cron("value"));
+    }
+    
+});
+    });
+</script>

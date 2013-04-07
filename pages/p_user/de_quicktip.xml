@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<quicktips>
+	<item id="userdata">Diese Daten sind für den Login in ConfWizard hinterlegt.</item>
+	<item id="changedata">Passwort- und Emaileinstellungen beziehen sich ausschließlich auf den Zugang zum Webpanel von Confwizard.</item>
+	<item id="subuser">Sofern Sie Unterbenutzer anlegen dürfen, können Sie ihre Ressourcen aufteilen.</item>
+</quicktips>

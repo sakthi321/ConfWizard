@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language id="de">
+	<entry id="Customers">Kunden</entry>
+	<entry id="CustomersTeaser">Verwalten Sie ihre Kunden hier.</entry>
+	<entry id="Capacity">Kundenkapazitäten</entry>
+	<entry id="CapacityExceeded">Sie können keine weitere Kunden anlegen</entry>
+	<entry id="Add">Kunden anlegen</entry>
+	<entry id="Edit">Kunden bearbeiten</entry>
+	<entry id="protected">Dieser Kunde ist geschütz und kann nicht gelöscht werden.</entry>
+	<entry id="notown">Dieser Kunde ist Ihnen nicht zugeordnet.</entry>
+	<entry id="WillDeleted">Der Kunde wurde gelöscht.</entry>
+	<entry id="del_hasusers">Dem Kunden wurden Benutzer zugeordnet. Somit kann dieser nicht gelöscht werden. Löschen oder Tranferieren Sie zuerst die zugeordneten Benutzer.</entry>
+	<entry id="prename">Vorname</entry>
+	<entry id="surname">Zuname</entry>
+	<entry id="street">Strasse und H-nr.</entry>
+	<entry id="zip">PLZ und Ort</entry>
+	<entry id="phone">Telefon</entry>
+	<entry id="mobile">Handy</entry>
+	<entry id="fax">Fax</entry>
+	<entry id="email">Email</entry>
+	<entry id="website">Webseite</entry>
+</language>

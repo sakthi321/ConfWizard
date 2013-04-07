@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<groups>
+	<group name="registered">
+		<page name="index" allow="index" />
+		<page name="login"  allow="logout,index" />
+        <page name="offers"  allow="index,add,delete" />
+        <page name="user"  allow="index,changepassword,changeemail,add,delete" />
+        <page name="ftp"  allow="index,ajax,changepassword,delete,edit,add" />
+        <page name="mysql"  allow="index,edit,delete,add,adduser,deleteuser" />
+        <page name="cronjob"  allow="index,edit,delete,add" />
+        <page name="ajax"  allow="directory,privatekey,csr" />
+        <page name="domain"  allow="index,addsubdomain,deletesubdomain,editsubdomain,edit,add" />
+        <page name="customers"  allow="index,edit,add,delete" />
+        <page name="tools"  allow="index,certificate,  csr_request,ssl_assistent,generate_key" />
+
+
+
+
+        <page name="email"  allow="index" />
+        <page name="help" allow="index,opencategorie,license"/>
+        <page name="demo" allow="index"/>
+	</group>
+    <group name="none">
+		<page name="index" allow="index" />
+		<page name="login"  allow="logout,index" />
+	</group>
+</groups>

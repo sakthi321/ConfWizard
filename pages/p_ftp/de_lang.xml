@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language id="de">
+	<entry id="FTPWillDeleted">Der FTP Zugang wurde zum Löschen markiert</entry>
+	<entry id="FTPExeed">Es darf kein weiterer FTP Benutzer angelegt werden.</entry>
+	<entry id="notown">Sie haben keinen Zugriff auf diesen Benutzer, da dieser nicht Ihnen gehört.</entry>
+</language>

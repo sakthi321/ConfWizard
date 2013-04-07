@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language id="de">
+	<entry id="Add">Cronjob anlegen</entry>
+	<entry id="WillDeleted">Cronjob wurde zum Löschen markiert.</entry>
+	<entry id="CapacityExceeded">Sie können keine weitere Cronjobs anlegen</entry>
+	<entry id="SubDomainCapacity">Subdomainkapazitäten</entry>
+	<entry id="notown">Dieser Cronjob gehört nicht Ihnen.</entry>
+</language>

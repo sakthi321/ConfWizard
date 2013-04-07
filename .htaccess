@@ -1,0 +1,7 @@
+Options -Indexes
+
+<Files ~ "configuration.php">
+    Order allow,deny
+    Deny from all
+    Satisfy all
+</Files>

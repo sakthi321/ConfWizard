@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<quicktips>
+	<item id="domain">Mittels der Domaineinstellungen legen Sie fest, wie ihre Webseite erreichbar ist.</item>
+	<item id="extdomain">Falls Sie Domains über einen externen Nameserver auflösen möchten, so können Sie selber Domains anlegen.</item>
+	<item id="subdomain">Für eine Domain 'domain.com' können Subdomains, wie 'forum.domain.com' angelegt werden.</item>
+	<item id="prefix">Dieser Teil wird der Domain vorgestellt. Möchten Sie eine Domain ohne Präfix erstellen oder bearbeiten so lassen Sie diesen weg, denn 'www.domain.com' und 'domain.com' sind unterschiedliche Domains!</item>
+	<item id="host_path">Geben Sie den Pfad zum Verzeichnis ab 'public' ein. Möchten Sie auf 'public/forum/meins' verweisen, so geben Sie bitte '/forum/meins' ein. Beachten Sie, dass jede Eingabe mit '/' beginnen muss!</item>
+	<item id="redirect_path">Geben Sie die Domain inklusive 'http://' ein, auf die Sie verweisen möchten.</item>
+	<item id="form_tld">Geben Sie die Domain getrennt ein. Z.B. 'domain.com' wird als 'domain' und 'com' eingegeben.</item>
+	<item id="redirect_codes">Soll die Weiterleitung länger bestehen, so verwenden Sie den Type 301. Dieser ist auch eher suchmaschinenfreundlich.</item>
+</quicktips>
