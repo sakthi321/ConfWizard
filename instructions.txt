@@ -1,0 +1,34 @@
+remarks
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+This projects should bring a new solution in the category hosting control panels.
+It currently supports Debian Squeeze with Apache2 and ProFTPd (standalone) and MySQL.
+
+warning !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+This projects is in the alpha state. 
+It works but I don't recommend to use it in productivity. 
+During the developing process it runs in a VM.
+
+roadmap to the future
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+The next steps should be:
+- finish SNI (ServerNameIdentification)
+- implement postfix and dovecot interfaces
+- debug the install bash script
+- use mongoose
+
+test it
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+You can test it in a live demo (integralstudio.net, an older version) or run it in a VM.
+
+install
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+download it and put it in
+/var/www/confwizard
+
+user webs will be in
+/var/www/webs
+The file 
+/var/www/confwizard/data/information.db
+must be writeable from the web.
+
