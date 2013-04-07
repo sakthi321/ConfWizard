@@ -1,4 +1,4 @@
-ConfWizard (integralstudio.net)
+ConfWizard (∫ntegralStudio)
 ====================================
 
 New OpenSource Hosting Control Panel using 
