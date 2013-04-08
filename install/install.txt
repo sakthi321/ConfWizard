@@ -1,0 +1,113 @@
+#!/bin/bash
+
+txt_reset=$(tput sgr0) # Text reset
+txt_red=$(tput setaf 1) # Red
+txt_green=$(tput setaf 2) # Green
+txt_yellow=$(tput setaf 3) # Yellow
+txt_blue=$(tput setaf 4) # Blue
+txt_purple=$(tput setaf 5) # Purple
+txt_cyan=$(tput setaf 6) # Cyan
+txt_white=$(tput setaf 7) # White
+
+
+display()
+{
+    echo "${txt_reset} "
+    echo "${txt_yellow} "
+    echo "$1"
+    echo "${txt_reset} "
+    echo "${txt_cyan} "
+    echo ""
+}
+
+echo "${txt_green} "
+echo ""
+echo '         ____             ____        ___                  _ '
+echo '        / ___|___  _ __  / _\ \      / (_)______ _ _ __ __| |'
+echo "       | |   / _ \| '_ \| |_ \ \ /\ / /| |_  / _  | '__/ _  |"
+echo '       | |__| (_) | | | |  _| \ V  V / | |/ / (_| | | | (_| |'
+echo '        \____\___/|_| |_|_|    \_/\_/  |_/___\__,_|_|  \__,_|'
+echo '    ============================================================'
+echo ""
+echo "${txt_reset} "
+
+display "- This setup will install ConfWizard on you server."
+
+if [ "$(id -u)" != "0" ]; then
+   echo "${txt_red} "
+   echo "You are not root! This script must be run as root! Exit ..."
+   echo "${txt_reset} "
+   exit 1
+fi
+
+
+display "- Updating apt-get ..."
+
+apt-get update -y
+apt-get upgrade -y
+
+display "- Installing SSH..."
+
+apt-get install -q -y ssh
+
+display "- Changing default SSH port..."
+
+sed -i 's/Port 22/Port 28/' /etc/ssh/sshd_config
+/etc/init.d/ssh restart
+
+display "- Installing Apache2..."
+
+apt-get install -q -y apache2
+sed -i 's/ServerTokens Full/ServerTokens Prod/' /etc/apache2/conf.d/security
+sed -i 's/ServerSignature On/ServerSignature Off/' /etc/apache2/conf.d/security
+sed -i 's/TraceEnable On/TraceEnable Off/' /etc/apache2/conf.d/security
+/etc/init.d/apache2 reload
+a2enmod rewrite
+/etc/init.d/apache2 restart
+
+display "- Installing OpenSSL..."
+
+apt-get install openssl ssl-cert
+
+display "- Installing PHP5..."
+
+apt-get install -q -y php5 libapache2-mod-suphp php5-cgi php5-mysql php5-gd php5-mcrypt curl php5-cli php5-common php5-cgi
+
+display "- Securing PHP.ini file..."
+#sed -i 's/disable_functions =/disable_functions = show_source, system, exec/' /etc/php5/apache2/php.ini
+sed -i 's/expose_php = On/expose_php = Off/' /etc/php5/apache2/php.ini
+sed -i 's/echo_echos = On/echo_echos = Off/' /etc/php5/apache2/php.ini
+sed -i 's/log_echos = Off/log_echos = On/' /etc/php5/apache2/php.ini
+sed -i 's/allow_url_fopen = On/allow_url_fopen = Off/' /etc/php5/apache2/php.ini
+
+sed -i 's/logfile=\/var\/log\/suphp\/suphp.log/logfile=\/var\/log\/apache2\/suphp.log' /etc/suphp/suphp.conf
+sed -i 's/allow_file_group_writeable=false/allow_file_group_writeable=true' /etc/suphp/suphp.conf
+sed -i 's/allow_directory_group_writeable=false/allow_directory_group_writeable=true' /etc/suphp/suphp.conf
+sed -i 's/umask=0077/umask=0022' /etc/suphp/suphp.conf
+
+display "- Installing MySQL Server..."
+
+echo "Please enter a password for mysql user: root"
+read MYSQL_PASS
+
+DEBIAN_FRONTEND='nonechoive' apt-get install -q -y mysql-server
+mysqladmin -u root password $MYSQL_PASS
+apt-get install -q -y php5-mysql
+mysql_secure_installation
+
+display "- Updating apt-get ..."
+
+apt-get update -y
+apt-get upgrade -y
+
+display "- Installing SQLite..."
+
+apt-get install sqlite3 php5-sqlite
+
+display "- Installing ProFTPd..."
+
+apt-get install proftpd-basic
+
+display "- READY ..."
+
+
