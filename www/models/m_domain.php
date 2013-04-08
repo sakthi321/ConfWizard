@@ -44,8 +44,8 @@ class GlobeProcessor {
 		return Icon::Create('globe').'Eigengebrauch';
 	}
 }
-
-class DomainExistsFilter  {
+include_once 'core/form.php';
+class DomainExistsFilter  extends Validator{
 
 	public function Test($Element ){
         $sql = new SQL() ;

@@ -214,6 +214,7 @@ class User
 		for($i=123;$i<126;$i++)
 			$Charset[] = chr($i);
 
+		shuffle($Charset);
 		return substr(implode('',$Charset),0,$length);
 
 	}
