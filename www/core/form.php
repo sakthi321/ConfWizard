@@ -643,7 +643,7 @@ class FormLink extends FormElement{
 	}
 }
 class FormTextarea extends FormElement{
-	protected $AllowedAttributes = array('name','id','type','value','style','class','size','placeholder','readonly','cols','rows');
+	protected $AllowedAttributes = array('name','id','type','value','style','class','size','placeholder','readonly','cols','rows','Quicktip');
 	public function GetHtml()
 	{
 
@@ -657,6 +657,7 @@ class FormTextarea extends FormElement{
 		$html .= $this->BuildAttributes();
 		$html .= '>'.$val.'</textarea >';
 		$html .= $this->GetErrorMessage();
+		$html .= $this->QuicktipReference();
 		return $html;
 	}
 }
