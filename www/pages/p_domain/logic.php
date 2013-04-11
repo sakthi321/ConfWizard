@@ -117,9 +117,13 @@ class P_domain extends page {
 	}
 	public function addAction()
 	{
+		$id 		= (int)Request::get( 'id' ) ;
 		$html 		= '';
+
+
 		$Model 		= new M_Domain();
-		$Formular 	= $Model->GetForm();
+
+		$Formular 	= $Model->GetForm($id);
 		$Formular->Sections['Domain Einstellungen']->DeleteElement('linked_subs');
 		$Formular->AddDefaultActions('domain');
 

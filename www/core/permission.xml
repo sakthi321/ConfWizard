@@ -11,11 +11,12 @@
         <page name="ajax"  allow="directory,privatekey,csr" />
         <page name="domain"  allow="index,addsubdomain,deletesubdomain,editsubdomain,edit,add" />
         <page name="customers"  allow="index,edit,add,delete" />
-        <page name="tools"  allow="index,certificate" />
-        <page name="email"  allow="index,addadress" />
+        <page name="tools"  allow="index,certificate,  csr_request,ssl_assistent,generate_key" />
 
 
 
+
+        <page name="email"  allow="index" />
         <page name="help" allow="index,opencategorie,license"/>
         <page name="demo" allow="index"/>
 	</group>

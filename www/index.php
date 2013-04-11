@@ -54,7 +54,7 @@ $M_Menu1->addLink(new Link('customers', 'index', array(), Icon::Create('user-sil
 $M_Menu2->addLink(new Link('ftp', 'index', array(), Icon::Create('folder-network').'FTP'));
 $M_Menu2->addLink(new Link('mysql', 'index', array(), Icon::Create('database').'MySQL'));
 $M_Menu2->addLink(new Link('cronjob', 'index', array(), Icon::Create('clock').'Cronjobs'));
-$M_Menu2->addLink(new Link('email', 'index', array(), Icon::Create('mail').'Email'));
+#$M_Menu2->addLink(new Link('email', 'index', array(), Icon::Create('mail').'Email'));
 $M_Menu2->addLink(new Link('domain', 'index', array(), Icon::Create('globe').'Domains'));
 
 #$M_Menu->addLink(new Link('server', 'index', array(), 'Server'));
@@ -111,6 +111,7 @@ if (file_exists($file))
 {
     $MASTER_TPL->set('content', '404 Page not found');
 }
+
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ CREATE DOCUMENT ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 $MASTER_TPL->set('name', "ConfWizard");

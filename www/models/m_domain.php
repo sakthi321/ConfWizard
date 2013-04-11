@@ -47,7 +47,7 @@ class GlobeProcessor {
 include_once 'core/form.php';
 class DomainExistsFilter  extends Validator{
 
-	public function Check($Element ){
+	public function Test($Element ){
         $sql = new SQL() ;
     	$r = 0;
 
@@ -174,39 +174,30 @@ class M_Domain extends Model {
         $Statement = new SQL() ;
         return $Statement->Select('*' )->From('cw_subdomains' )->Where(array('user_id' => $id ) )->Execute()->fetchArraySet() ;
     }
-	public function GetDomains($id )
-	{
-		$Result = $this->Stm
-				->Select(array(
-				'd.`id` as id',
-				' d.`name` as prefix',
-				'd.`user_id` as user_id', ), false )
-				->Concate(array(
-				' d.`name` ',
-				' \'.\' ',
-				' d.`tld`' ) )
-				->Add('as domain' )
-				->From('cw_domains', 'd' )
-				->Where(array('d.`user_id`' => $id ), false )
-				->Execute()
-				->FetchArraySet() ;
+    public function GetDomains($id )
+    {
+        $Statement = new SQL() ;
+        $Result = $Statement
+        		->Select(array(
+	                'd.`id` as id',
+	                ' d.`name` as prefix',
+	                'd.`user_id` as user_id', ), false )
+        		->Concate(array(
+	                ' d.`name` ',
+	                ' \'.\' ',
+	                ' d.`tld`' ) )
+        		->Add('as domain' )
+        		->From('cw_domains', 'd' )
+        		->Where(array('d.`user_id`' => $id ), false )
+        		->Execute()
+        		->FetchArraySet() ;
 
-		$Return = array();
-		foreach($Result as $Entry ) {
-			$Return[$Entry['id']] = $Entry['domain'];
-		}
-		return $Return;
-	}
-	public function GetAllDomains($id )
-	{
-		$sql = 'Select s.id as key, s.name || "." || d.name || "." || d.tld as label from [cw_domains] d INNER JOIN cw_subdomains s ON s.domain_id = d.id WHERE d.user_id = \''.$id.'\'';
-		$Result = DATABASE::QUERY($sql)->fetchArraySet();
-		$Return = array();
-		foreach($Result as $Entry ) {
-			$Return[$Entry['key']] = $Entry['label'];
-		}
-		return $Return;
-	}
+        $Return = array();
+        foreach($Result as $Entry ) {
+            $Return[$Entry['id']] = $Entry['domain'];
+        }
+        return $Return;
+    }
 
     public function GetListViewDomains($data = array() )
     {

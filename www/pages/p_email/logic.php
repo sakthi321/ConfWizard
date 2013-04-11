@@ -26,55 +26,164 @@ class P_email extends page{
 
 
     public function indexAction(){
-    	$Model 	= new M_Mail();
-        $Data 	= $Model->GetMailAdresses();
-        $Usage	= new Usage();
-        $Table 	= $Model->GetListView($Data) ;
+        $sql = new SQL();
 
-    	if ( $Usage->IsFree('mail_adresses') ) {
-    		$this->tpl->set( 'add_adress', Link::Button( 'email', 'addadress', array(), Icon::Create( 'mail--plus' ) . $this->Locale->_('AddAdress') ) ) ;
-    	} else {
-    		$this->tpl->set( 'add_adress', $this->Locale->_('AdressCapacityExceeded') ) ;
-    	}
+        $Data = $sql->Select(array(
+                    'command',
+                    'comment',
+                    'enabled',
+                    'format',
+                    'state',
+                    'id'))->From('cw_cronjobs')->Where(array('user_id' => User::GetId()))->Execute()->fetchArraySet() ;
+
+        $Model = new M_Cronjob();
+
+        $capacity = $Model->GetCapacity(User::GetId()) ;
+
+        //////////////// Ajax
+
+        $Table = $Model->GetListView($Data) ;
+
+        $current_cronjob = $capacity[0];
+        $max_cronjob = ($capacity[1] == '-1') ? '&infin;' : $capacity[1] ;
+
+
+        if( ($capacity[0]<$capacity[1]) OR ($capacity[1] == '-1')  ){
+            $this->tpl->set('add_cronjob', Link::Button('cronjob', 'add', array(), Icon::Create('clock--plus').'Cronjob anlegen')) ;
+        }else{
+            $this->tpl->set('add_cronjob', 'Sie können keine weitere Cronjobs anlegen') ;
+        }
+
+        $this->tpl->set('current_cronjobs', $current_cronjob) ;
+        $this->tpl->set('max_cronjobs', $max_cronjob) ;
         $this->tpl->set('listview', $Table->GetHtml()) ;
 
 
         return $this->tpl->GetHtml();
     }
-	public function addadressAction(){
-		$html 		= '';
-		$Model 		= new M_Mail();
-		$Formular 	= $Model->GetForm();
-		$Formular->AddDefaultActions('email');
+    public function addAction(){
+
+        $this->tpl->set('init', '0 2 * * *') ;
+        $Model = new M_Cronjob() ;
+
+        if(!$Model->CanAddNewAccount(User::GetId())){
+                throw new AccessException('kann keinen weitere Datenbank anlegen.');
+            }
+        $Formular = $Model->GetForm();
 
 
-		if ($Formular->WasSent()){
-			try{
-				$Formular->Validate();
-				$Model->InsertAdress(
-						User::GetId(),
-						Request::Get( 'domain_id', true ),
-						Request::Get( 'target_mails', true ),
-						Request::Get( 'target_accounts', true )
-					);
-				$html =  Messagebox::Create( $this->Locale->_('AdressWasInsert'), 'info' ) . new Link( 'email', 'index', array(), $this->GlobalLocale->_('back'), true);
-			}catch(AppException $e){
-				$Formular->Populate();
-				$html =  Messagebox::Create( $e->getMessage(), 'error' ).$Formular->GetHtml();
-			}
+        $Formular->AddElementsFromArray(array(array(
+                'type' => 'Submit',
+                'name' => 'save',
+                'value' => 'anlegen')), 'Aktionen') ;
 
-		}else{
-			$Formular->Populate() ;
-			$html = $Formular->GetHtml() ;
-		}
+        $BackButton = new FormLink() ;
+        $BackButton->SetLink(new Link('cronjob', 'index', array(), $this->GlobalLocale->_('back'))) ;
+        $BackButton->SetFloat('yes') ;
+        $Formular->AddElement($BackButton, 'Aktionen') ;
+        $html = '';
+        if ($Formular->WasSent() && $Formular->Validate())
+        {
+            if(!$Model->CanAddNewAccount(User::GetId())){
+                throw new AccessException('kann keinen weiteren Cronjob anlegen.');
+            }
 
-		$this->tpl->set(
-			array(
-				'form'	=> $html
-			)
-		);
-		return $this->tpl->GetHtml();
-	}
 
+            $F = new DatabaseTable('cw_cronjobs') ;
+            $F->format = Request::Get('format',true) ;
+            $F->enabled = Request::Get('enabled',true) ;
+            $F->comment = Request::Get('comment',true) ;
+            $F->command = Request::Get('command',true) ;
+            $F->user_id = User::GetId().'' ;
+            $F->state = '1' ;
+            $F->Apply() ;
+
+            $html = Messagebox::Create('Cronjob angelegt', 'info') . new Link('cronjob', 'index', array(), $this->GlobalLocale->_('back'), true) ;
+
+        } else
+        {
+            if($Formular->WasSent())
+                $this->tpl->set('init', Request::Get('format')."") ;
+
+            $Formular->Populate() ;
+            $html = $Formular->GetHtml() ;
+        }
+
+
+
+        $this->tpl->set('form', $html) ;
+        $this->tpl->set('text', '') ;
+        return $this->tpl->GetHtml() ;
+    }
+    public function editAction(){
+
+
+
+        $id = (int)Request::get('id') ;
+
+        // test if user can apply changes
+        $sql = new SQL() ;
+        if (!$sql->Exists('cw_cronjobs', array('id' => $id, 'user_id' => User::GetId())))
+        {
+            throw new AccessException('this is not your cronjob!') ;
+        }
+        $html = '';
+
+        $Data = $sql->Select(array('command',
+                    'comment',
+                    'enabled',
+                    'format',
+                    'state',
+                    'id'))->From('cw_cronjobs')->Where(array('id' => $id))->Execute()->FetchArray() ;
+
+        $Model = new M_Cronjob();
+
+        $this->tpl->set('init', $Data['format']) ;
+
+        $Formular = $Model->GetForm($id);
+
+        $Formular->AddElementsFromArray(array(array(
+                'type' => 'Submit',
+                'name' => 'save',
+                'value' => 'ändern')), 'Aktionen') ;
+
+
+
+        $BackButton = new FormLink() ;
+        $BackButton->SetLink(new Link('cronjob', 'index', array(), $this->GlobalLocale->_('back'))) ;
+        $BackButton->SetFloat('yes') ;
+        $Formular->AddElement($BackButton, 'Aktionen') ;
+
+
+        if ($Formular->WasSent() && $Formular->Validate())
+        {
+
+            $F = new DatabaseTable('cw_cronjobs',$id) ;
+            $F->format = Request::Get('format',true) ;
+            $F->enabled = Request::Get('enabled',true) ;
+            $F->comment = Request::Get('comment',true) ;
+            $F->command = Request::Get('command',true) ;
+            $F->state = '2' ;
+            $F->Apply() ;
+
+            $html = Messagebox::Create('Änderungen durchgeführt', 'info') . new Link('cronjob', 'index', array(), $this->GlobalLocale->_('back'), true) ;
+
+        } else
+        {
+            if($Formular->WasSent()){
+                $this->tpl->set('init', Request::Get('format')."") ;
+                $Formular->Populate() ;
+            }
+
+
+            $Formular->Populate($Data) ;
+            $html = $Formular->GetHtml() ;
+        }
+
+
+        $this->tpl->set('form', $html) ;
+        $this->tpl->set('text', '') ;
+        return $this->tpl->GetHtml() ;
+    }
 
 }
