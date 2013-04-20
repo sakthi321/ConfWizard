@@ -176,25 +176,34 @@ class M_Domain extends Model {
     }
     public function GetDomains($id )
     {
-        $Statement = new SQL() ;
-        $Result = $Statement
-        		->Select(array(
-	                'd.`id` as id',
-	                ' d.`name` as prefix',
-	                'd.`user_id` as user_id', ), false )
-        		->Concate(array(
-	                ' d.`name` ',
-	                ' \'.\' ',
-	                ' d.`tld`' ) )
-        		->Add('as domain' )
-        		->From('cw_domains', 'd' )
-        		->Where(array('d.`user_id`' => $id ), false )
-        		->Execute()
-        		->FetchArraySet() ;
-
+        $Result = $this->Stm
+           ->Select(array(
+           'd.`id` as id',
+           ' d.`name` as prefix',
+           'd.`user_id` as user_id', ), false )
+           ->Concate(array(
+           ' d.`name` ',
+           ' \'.\' ',
+           ' d.`tld`' ) )
+           ->Add('as domain' )
+           ->From('cw_domains', 'd' )
+           ->Where(array('d.`user_id`' => $id ), false )
+           ->Execute()
+           ->FetchArraySet() ;
+        -
         $Return = array();
         foreach($Result as $Entry ) {
-            $Return[$Entry['id']] = $Entry['domain'];
+         $Return[$Entry['id']] = $Entry['domain'];
+        }
+        return $Return;
+    }
+    public function GetAllDomains($id )
+    {
+        $sql = 'Select s.id as key, s.name || "." || d.name || "." || d.tld as label from [cw_domains] d INNER JOIN cw_subdomains s ON s.domain_id = d.id WHERE d.user_id = \''.$id.'\'';
+        $Result = DATABASE::QUERY($sql)->fetchArraySet();
+        $Return = array();
+        foreach($Result as $Entry ) {
+         $Return[$Entry['key']] = $Entry['label'];
         }
         return $Return;
     }

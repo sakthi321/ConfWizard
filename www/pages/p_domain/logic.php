@@ -123,7 +123,7 @@ class P_domain extends page {
 
 		$Model 		= new M_Domain();
 
-		$Formular 	= $Model->GetForm($id);
+		$Formular 	= $Model->GetForm();
 		$Formular->Sections['Domain Einstellungen']->DeleteElement('linked_subs');
 		$Formular->AddDefaultActions('domain');
 
