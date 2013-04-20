@@ -20,6 +20,13 @@
  * @license    GPLv3 http://integralstudio.net/license.txt
  *
  */
+ 
+class UserPathProcessor {
+    public function Process($data, $row )
+    {
+    	return str_replace(User::GetHomeDirectory().'public','',$data);
+    }
+}
 
 class M_Tools extends model{
 
@@ -32,12 +39,183 @@ class M_Tools extends model{
 		), $data) ;
 
 		$Table->SetActions(array(
-		    new Link('ftp', 'changepassword', array('id' => ''), Icon::Create('lock--arrow'), false),
-		    new Link('ftp', 'edit', array('id' => ''), Icon::Create('property'), false),
-		    new Link('ftp', 'delete', array('id' => ''), Icon::Create('cross-button'), false))) ;
+		    new Link('tools', 'changepassword', array('id' => ''), Icon::Create('lock--arrow'), false),
+		    new Link('tools', 'edit', array('id' => ''), Icon::Create('property'), false),
+		    new Link('tools', 'delete', array('id' => ''), Icon::Create('cross-button'), false))) ;
 
 		return $Table ;
 	}
+    
+    public function HtAccessListView($data = array())
+	{
+		$Table = new Table(array(
+		   'path'=>$this->Locale->_('htaccess_path'),
+		   'comment' => $this->Locale->_('htaccess_comment'),
+		), $data) ;
+
+		$Table->SetActions(array(
+		    new Link('tools', 'edit_htaccess', array('id' => ''), Icon::Create('property'), false),
+		    new Link('tools', 'delete_htaccess', array('id' => ''), Icon::Create('cross-button'), false))) ;
+
+        $Table->SetProcessor('path', new UserPathProcessor() ) ;
+
+		return $Table ;
+	}
+    
+    public function AddHtAccess($path,$sectionname,$comment){
+        // create file
+        $htaccess_file = new file($path.'.htaccess');
+        $content = <<<EOF
+AuthName        "{$sectionname}"
+AuthType        Basic
+AuthUserFile    {$path}.htpasswd
+
+<Limit GET POST>
+require valid-user
+</Limit>
+EOF;
+        $htaccess_file->SetContent($content);
+        $htaccess_file->Store();
+        
+        // store in db too
+        $F = new DatabaseTable( 'cw_path_htaccess' ) ;
+        $F->user_id = User::GetId();
+		$F->path = $path ;
+		$F->comment = $comment ;
+		$F->Apply() ;
+        return $F->id;
+        
+    }
+    public function AddHtUser($ht_id,$username,$password){
+        // get path
+        $F = new DatabaseTable( 'cw_path_htaccess',$ht_id ) ;
+		$path = $F->path ;
+
+        
+        // create file
+        $htpasswd_file = new file($path.'.htpasswd');
+        
+        $line = $htpasswd_file->Find($username);
+        if($line!==null)
+            throw new AppException('user already exists');
+            
+        
+        $content = $username.':'.Util::Crypt($password);
+        $htpasswd_file->AddLine($content);
+        $htpasswd_file->Store();
+          
+    }
+    public function DeleteHtUser($ht_id,$username){
+        // get path
+        $F = new DatabaseTable( 'cw_path_htaccess',$ht_id ) ;
+		$path = $F->path ;
+        
+        // create file
+        $htpasswd_file = new file($path.'.htpasswd');
+        
+        $line = $htpasswd_file->Find($username);
+        if($line!==null)
+            $htpasswd_file->DelLine($line);     
+    }
+    public function UpdateHtUser($ht_id,$username,$password){
+        // get path
+        $F = new DatabaseTable( 'cw_path_htaccess',$ht_id ) ;
+		$path = $F->path ;
+        
+        // create file
+        $htpasswd_file = new file($path.'.htpasswd');
+        
+        $content = $username.':'.Util::Crypt($password);
+        
+        $line = $htpasswd_file->Find($username);
+        if($line!==null){
+            // update user data
+            $htpasswd_file->SetLine($line,$content);
+        }else{
+            // propably the file was edited manually, so insert the user
+            $htpasswd_file->AddLine($content);
+        }
+        $htpasswd_file->Store();     
+    }
+    
+    public function GetAddHtAccessForm(){
+        $Formular = new Form();
+		$Formular->AddElementsFromArray(
+			array(
+				array(
+					'type' => 'text',
+					'name' => 'path',
+					'value' => '',
+                    'label' => $this->Locale->_('htaccess_path'),
+                    'validators' => array(
+    	    			new EmptyValidator(false),
+    	    			new MaxLengthValidator(100 ),
+    	    			new PathValidator(User::GetHomeDirectory().'public'),
+    	    			new DirectoryValidator(User::GetHomeDirectory().'public')
+    	    		),
+					'size' => 40),
+                array(
+					'type' => 'text',
+					'name' => 'sectionname',
+                    'label' => $this->Locale->_('htaccess_sectionname'),
+                    'validators' => array(
+    	    			new EmptyValidator(false),
+    	    			new MaxLengthValidator(100 ),
+    	    		),
+					'value' => '',
+					'size' => 40),
+				array(
+					'type' => 'text',
+					'name' => 'comment',
+                    'label' => $this->Locale->_('htaccess_comment'),
+					'value' => '',
+                    'validators' => array(
+    	    			new MaxLengthValidator(100 ),
+    	    		),
+					'size' => 40),
+			),
+			'gen_htaccess',
+			'Verzeichnisschutz erzeugen'
+		);
+        $Formular->AddDefaultActions('tools');
+        return $Formular;
+    }
+    public function GetHtUserForm($id){
+        $Formular = new Form();
+		$Formular->AddElementsFromArray(
+			array(
+                array(
+                    'type'=>'hidden',
+                    'name'=>'id',
+                    'value'=> $id
+                ),
+				array(
+					'type' => 'text',
+					'name' => 'username',
+					'value' => '',
+                    'label' => $this->Locale->_('htaccess_username'),
+                    'validators' => array(
+    	    			new EmptyValidator(false),
+    	    			new MaxLengthValidator(100 ),
+    	    		),
+					'size' => 40),
+                array(
+					'type' => 'text',
+					'name' => 'password',
+                    'label' => $this->Locale->_('htaccess_password'),
+                    'validators' => array(
+    	    			new EmptyValidator(false),
+    	    			new MaxLengthValidator(100 ),
+    	    		),
+					'value' => '',
+					'size' => 40),
+			),
+			'gen_htaccess',
+			'Verzeichnisbenutzer erzeugen'
+		);
+        $Formular->AddDefaultActions('tools');
+        return $Formular;
+    }
 
 	public function CertificateForm($keytype='create'){
 

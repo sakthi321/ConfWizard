@@ -35,21 +35,26 @@ class P_tools extends page{
     				->Add(' AND commonName IS NOT \'\'')
     				->Execute()
     				->fetchArraySet() ;
-
-
 		$Table = $Model->SSLListView($Data) ;
+        
+        $HTACCESS 	= $this->Stm
+    				->Select(array('id','path','comment'))
+    				->From('cw_path_htaccess')
+    				->Where(array('user_id' => User::GetId()))
+    				->Execute()
+    				->fetchArraySet() ;
+        $TableHT = $Model->HtAccessListView($HTACCESS) ;
 
 		$this->tpl->set(
 		array(
-		#	'current_ftp'	=> $Usage->Current('ftp_access'),
-		#	'max_ftp'		=> $Usage->Maximal('ftp_access',true),
-		#	'ftpcapacity'	=> Progressbar::Create($Usage->Current('ftp_access'),$Usage->Maximal('ftp_access')),
-			'listview'		=> $Table->GetHtml()
-		)
+    			'listview'		    => $Table->GetHtml(),
+                'listview_htaccess' => $TableHT->GetHtml(),
+                'csr_request'       => Link::Button( 'tools', 'certificate', array(), Icon::Create( 'receipt--plus' ) . 'SSL Zertifikat erstellen' ),
+                'add_htaccess'       => Link::Button( 'tools', 'add_htaccess', array(), Icon::Create( 'shield--plus' ) . 'Verzeichnisschutz erstellen' )
+    		)
 		);
 
 
-		$this->tpl->set( 'csr_request', Link::Button( 'tools', 'certificate', array(), Icon::Create( 'receipt--plus' ) . 'SSL Zertifikat erstellen' ) ) ;
 		return $this->tpl->GetHtml();
 	}
 
@@ -60,6 +65,106 @@ class P_tools extends page{
 		$this->tpl->set('form',$Formular->GetHtml());
 		return $this->tpl->GetHtml();
 	}
+    
+    public function add_htuserAction(){
+        $id = (int) Request::Get('id');
+        if ( !$this->Stm->Exists( 'cw_path_htaccess', array( 'id' => $id, 'user_id' => User::GetId() ) ) ) {
+			throw new AccessException( $this->Locale->_('wrong_htacessid') ) ;
+		}
+        
+        $Model 	= new M_Tools() ;
+        $html = '';
+        $Formular = $Model->GetHtUserForm($id);
+    	if($Formular->WasSent()){
+   			try{
+				$Formular->Validate();
+   				$id = $Model->AddHtUser($id,Request::Get('username'),Request::Get('password') );
+   				$html = Messagebox::Create('Schutz angelegt', 'info' ) . new Link('tools', 'index', array(), $this->GlobalLocale->_('back'), true ) ;
+   			}catch(AppException $e){
+   				$Formular->Populate();
+				$html =  Messagebox::Create( $e->getMessage(), 'error' ).$Formular->GetHtml();
+   			}
+    	}else{
+    		$Formular->Populate() ;
+    		$html = $Formular->GetHtml() ;
+    	}
+
+
+        $this->tpl->set('form', $html ) ;
+        $this->tpl->set('text', '' ) ;
+
+        return $this->tpl->GetHtml() ;
+    }
+    public function edit_htuserAction(){
+        $id = (int) Request::Get('id');
+        if ( !$this->Stm->Exists( 'cw_path_htaccess', array( 'id' => $id, 'user_id' => User::GetId() ) ) ) {
+			throw new AccessException( $this->Locale->_('wrong_htacessid') ) ;
+		}
+        
+        $Model 	= new M_Tools() ;
+        $html = '';
+        $Formular = $Model->GetHtUserForm($id);
+    	if($Formular->WasSent()){
+   			try{
+				$Formular->Validate();
+   				$id = $Model->UpdateHtUser($id,Request::Get('username'),Request::Get('password') );
+   				$html = Messagebox::Create('Schutz angelegt', 'info' ) . new Link('tools', 'index', array(), $this->GlobalLocale->_('back'), true ) ;
+   			}catch(AppException $e){
+   				$Formular->Populate();
+				$html =  Messagebox::Create( $e->getMessage(), 'error' ).$Formular->GetHtml();
+   			}
+    	}else{
+    		$Formular->Populate() ;
+    		$html = $Formular->GetHtml() ;
+    	}
+
+
+        $this->tpl->set('form', $html ) ;
+        $this->tpl->set('text', '' ) ;
+
+        return $this->tpl->GetHtml() ;
+    }
+    public function delete_htuserAction()
+	{
+		$id = (int) Request::get( 'id' ) ;
+        $username = (string) Request::get( 'username' ) ;
+		try{
+			$Model = new M_Tools();
+			$Model->DeleteHtUser($id,$username);
+			return Messagebox::Create($this->Locale->_('htuserdelete'), 'info'). new Link('tools', 'index', array(), $this->GlobalLocale->_('back'), true) ;
+		}catch(Exception $e){
+			return Messagebox::Create($e->getMessage(), 'error'). new Link('tools', 'index', array(), $this->GlobalLocale->_('back'), true) ;
+		}
+	}
+    
+    public function add_htaccessAction(){
+        $Model 	= new M_Tools() ;
+
+        $html = '';
+
+        $Formular = $Model->GetAddHtAccessForm();
+
+
+    	if($Formular->WasSent()){
+   			try{
+				$Formular->Validate();
+   				$id = $Model->AddHtAccess(User::GetHomeDirectory().'public'.Request::Get('path', true ), Request::Get('sectionname', true ),Request::Get('comment', true ) );
+   				$html = Messagebox::Create('Schutz angelegt', 'info' ) . new Link('tools', 'add_htuser', array('id'=>$id), $this->Locale->_('htaccess_adduser'), true ) ;
+   			}catch(AppException $e){
+   				$Formular->Populate();
+				$html =  Messagebox::Create( $e->getMessage(), 'error' ).$Formular->GetHtml();
+   			}
+    	}else{
+    		$Formular->Populate() ;
+    		$html = $Formular->GetHtml() ;
+    	}
+
+
+        $this->tpl->set('form', $html ) ;
+        $this->tpl->set('text', '' ) ;
+
+        return $this->tpl->GetHtml() ;
+    }
 
 
 }

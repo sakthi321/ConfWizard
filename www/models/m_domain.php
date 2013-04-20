@@ -47,7 +47,7 @@ class GlobeProcessor {
 include_once 'core/form.php';
 class DomainExistsFilter  extends Validator{
 
-	public function Test($Element ){
+	public function Check($Element ){
         $sql = new SQL() ;
     	$r = 0;
 

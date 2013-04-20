@@ -16,7 +16,14 @@
 
 	<entry id="create_csr">CSR Request erstellen</entry>
 
-
+    <entry id="htaccess_path">Pfad zum Ordner</entry>
+    <entry id="htaccess_sectionname">Bereichsname</entry>
+    <entry id="htaccess_comment">Kommentar</entry>
+    <entry id="htaccess_adduser">Verzeichnisbenutzer hinzufügen</entry>
+    <entry id="htaccess_username">Verzeichnisbenutzer</entry>
+    <entry id="htaccess_password">Verzeichnispasswort</entry>
+    <entry id="wrong_htacessid">Ungültige .htaccess Datei</entry>
+    <entry id="htuserdelete">Verzeichnisbenutzer wurde gelöscht</entry>
 
 	<entry id="surname">Zuname</entry>
 	<entry id="street">Strasse und H-nr.</entry>

@@ -33,6 +33,10 @@ class file{
 	public function __construct($pathtofile){
 		$this->Open($pathtofile);
 	}
+    
+    public function Exists(){
+        return file_exists($this->Filename);
+    }
 
 	public function Open($pathtofile){
 		if(is_file($pathtofile) ){
