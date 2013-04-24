@@ -95,6 +95,9 @@ class P_tools extends page{
 
         return $this->tpl->GetHtml() ;
     }
+    
+
+    
     public function edit_htuserAction(){
         $id = (int) Request::Get('id');
         if ( !$this->Stm->Exists( 'cw_path_htaccess', array( 'id' => $id, 'user_id' => User::GetId() ) ) ) {
@@ -126,16 +129,41 @@ class P_tools extends page{
     }
     public function delete_htuserAction()
 	{
-		$id = (int) Request::get( 'id' ) ;
-        $username = (string) Request::get( 'username' ) ;
+		$ht_id = (int) Request::get( 'ht_id' ) ;
+        $username = (string) Request::get( 'id' ) ;
+        
+        
 		try{
 			$Model = new M_Tools();
-			$Model->DeleteHtUser($id,$username);
+			$Model->DeleteHtUser($ht_id,$username);
 			return Messagebox::Create($this->Locale->_('htuserdelete'), 'info'). new Link('tools', 'index', array(), $this->GlobalLocale->_('back'), true) ;
 		}catch(Exception $e){
 			return Messagebox::Create($e->getMessage(), 'error'). new Link('tools', 'index', array(), $this->GlobalLocale->_('back'), true) ;
 		}
 	}
+    
+    public function edit_htaccessAction(){
+        if(!Request::Exists('id')){
+            throw new AccessException('missed id');
+        }
+        
+        $id = (int) Request::get( 'id' ) ;
+        
+        $Model 	= new M_Tools() ;
+        
+        $HTACCESS = $Model->GetDataFromAccessFileById($id);
+        
+        $html = '';
+        $Table = $Model->HtAccessUserListView($HTACCESS,$id) ;
+
+		$this->tpl->set(
+		array(
+    			'user_grid'		    => $Table->GetHtml()
+		));
+
+
+		return $this->tpl->GetHtml();
+    }
     
     public function add_htaccessAction(){
         $Model 	= new M_Tools() ;

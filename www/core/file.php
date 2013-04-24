@@ -62,6 +62,15 @@ class file{
 	public function GetContent(){
 		return implode(PHP_EOL,array_diff(array_map('trim', $this->Content), array('')));
 	}
+    
+    /**
+	 * file::GetLines()
+	 * get temp content from file
+	 * @return
+	 */
+	public function GetAllLines(){
+		return array_diff(array_map('trim', $this->Content), array(''));
+	}
 
 	/**
 	 * file::SetContent()

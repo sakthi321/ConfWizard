@@ -62,6 +62,21 @@ class M_Tools extends model{
 		return $Table ;
 	}
     
+    public function HtAccessUserListView($data = array(),$ht_id=0)
+	{
+		$Table = new Table(array(
+		   'username'=>$this->Locale->_('htaccess_username'),
+		), $data) ;
+
+		$Table->SetActions(array(
+		    new Link('tools', 'edit_htuser', array('ht_id' => $ht_id), Icon::Create('property'), false),
+		    new Link('tools', 'delete_htuser', array('ht_id' => $ht_id), Icon::Create('cross-button'), false))) ;
+
+        $Table->SetProcessor('path', new UserPathProcessor() ) ;
+
+		return $Table ;
+	}
+    
     public function AddHtAccess($path,$sectionname,$comment){
         // create file
         $htaccess_file = new file($path.'.htaccess');
@@ -86,6 +101,20 @@ EOF;
         return $F->id;
         
     }
+    
+    public function GetDataFromAccessFileById($id){
+        $F = new DatabaseTable( 'cw_path_htaccess',$id ) ;
+		$path = $F->path ;
+        $htpasswd_file = new file($path.'.htpasswd');
+        $lines = $htpasswd_file->GetAllLines();
+        $ans = array();
+        foreach($lines as $line){
+            $d = explode(":",$line);
+            $ans[] = array('id'=>$d[0],'username'=>$d[0],'password'=>$d[1]);
+        }
+        return $ans;
+    }
+    
     public function AddHtUser($ht_id,$username,$password){
         // get path
         $F = new DatabaseTable( 'cw_path_htaccess',$ht_id ) ;
@@ -110,12 +139,18 @@ EOF;
         $F = new DatabaseTable( 'cw_path_htaccess',$ht_id ) ;
 		$path = $F->path ;
         
+        
         // create file
         $htpasswd_file = new file($path.'.htpasswd');
         
         $line = $htpasswd_file->Find($username);
-        if($line!==null)
+
+        if($line!==null){
             $htpasswd_file->DelLine($line);     
+        }
+        $htpasswd_file->Store();
+
+            
     }
     public function UpdateHtUser($ht_id,$username,$password){
         // get path
