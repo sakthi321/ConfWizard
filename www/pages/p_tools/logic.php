@@ -68,6 +68,7 @@ class P_tools extends page{
     
     public function add_htuserAction(){
         $id = (int) Request::Get('id');
+        $hh=(string)$id;
         if ( !$this->Stm->Exists( 'cw_path_htaccess', array( 'id' => $id, 'user_id' => User::GetId() ) ) ) {
 			throw new AccessException( $this->Locale->_('wrong_htacessid') ) ;
 		}
@@ -79,7 +80,7 @@ class P_tools extends page{
    			try{
 				$Formular->Validate();
    				$id = $Model->AddHtUser($id,Request::Get('username'),Request::Get('password') );
-   				$html = Messagebox::Create('Schutz angelegt', 'info' ) . new Link('tools', 'index', array(), $this->GlobalLocale->_('back'), true ) ;
+   				$html = Messagebox::Create('Schutz angelegt', 'info' ) . new Link('tools', 'edit_htaccess', array('id'=>$hh), $this->GlobalLocale->_('back'), true ) ;
    			}catch(AppException $e){
    				$Formular->Populate();
 				$html =  Messagebox::Create( $e->getMessage(), 'error' ).$Formular->GetHtml();
@@ -99,14 +100,20 @@ class P_tools extends page{
 
     
     public function edit_htuserAction(){
-        $id = (int) Request::Get('id');
+        $id = (int) Request::Get('ht_id');
         if ( !$this->Stm->Exists( 'cw_path_htaccess', array( 'id' => $id, 'user_id' => User::GetId() ) ) ) {
 			throw new AccessException( $this->Locale->_('wrong_htacessid') ) ;
 		}
         
+        $name = Request::get('id');
+        
+        $Data = array('username'=>$name);
+        
+        
         $Model 	= new M_Tools() ;
         $html = '';
         $Formular = $Model->GetHtUserForm($id);
+        $Formular->Sections['gen_htaccess']->DeleteElement('name');
     	if($Formular->WasSent()){
    			try{
 				$Formular->Validate();
@@ -117,13 +124,14 @@ class P_tools extends page{
 				$html =  Messagebox::Create( $e->getMessage(), 'error' ).$Formular->GetHtml();
    			}
     	}else{
-    		$Formular->Populate() ;
+    		$Formular->Populate($Data) ;
     		$html = $Formular->GetHtml() ;
     	}
 
 
         $this->tpl->set('form', $html ) ;
         $this->tpl->set('text', '' ) ;
+        
 
         return $this->tpl->GetHtml() ;
     }
@@ -136,9 +144,9 @@ class P_tools extends page{
 		try{
 			$Model = new M_Tools();
 			$Model->DeleteHtUser($ht_id,$username);
-			return Messagebox::Create($this->Locale->_('htuserdelete'), 'info'). new Link('tools', 'index', array(), $this->GlobalLocale->_('back'), true) ;
+			return Messagebox::Create($this->Locale->_('htuserdelete'), 'info'). new Link('tools', 'edit_htaccess', array('id'=>$ht_id), $this->GlobalLocale->_('back'), true) ;
 		}catch(Exception $e){
-			return Messagebox::Create($e->getMessage(), 'error'). new Link('tools', 'index', array(), $this->GlobalLocale->_('back'), true) ;
+			return Messagebox::Create($e->getMessage(), 'error'). new Link('tools', 'edit_htaccess', array('id'=>$ht_id), $this->GlobalLocale->_('back'), true) ;
 		}
 	}
     
@@ -146,20 +154,25 @@ class P_tools extends page{
         if(!Request::Exists('id')){
             throw new AccessException('missed id');
         }
-        
         $id = (int) Request::get( 'id' ) ;
+        if ( !$this->Stm->Exists( 'cw_path_htaccess', array( 'id' => $id, 'user_id' => User::GetId() ) ) )
+			throw new AppException( $this->Locale->_('htaccess_notown') ) ;
+        
+
         
         $Model 	= new M_Tools() ;
         
         $HTACCESS = $Model->GetDataFromAccessFileById($id);
-        
         $html = '';
         $Table = $Model->HtAccessUserListView($HTACCESS,$id) ;
 
 		$this->tpl->set(
-		array(
-    			'user_grid'		    => $Table->GetHtml()
-		));
+    		array(
+        			'user_grid'		 => $Table->GetHtml(),
+                    'add_user'       => Link::Button( 'tools', 'add_htuser', array('id'=>$id), Icon::Create( 'user--plus' ) . 'Zugriff erstellen' )
+            )
+        );
+
 
 
 		return $this->tpl->GetHtml();
@@ -192,6 +205,19 @@ class P_tools extends page{
         $this->tpl->set('text', '' ) ;
 
         return $this->tpl->GetHtml() ;
+    }
+    
+    public function delete_htaccessAction(){
+        $id = (int)Request::get('id') ;
+
+    	try{
+    		$Model = new M_Tools() ;
+    		$Model->DeleteHtAccess($id);
+    		return Messagebox::Create($this->Locale->_('htdelete'), 'info'). new Link('tools', 'index', array(), $this->GlobalLocale->_('back'), true) ;
+    	}catch(AppException $e){
+    		return Messagebox::Create($e->getMessage(), 'error'). new Link('tools', 'index', array(), $this->GlobalLocale->_('back'), true) ;
+    	}
+
     }
 
 

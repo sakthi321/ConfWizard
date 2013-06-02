@@ -24,6 +24,8 @@
     <entry id="htaccess_password">Verzeichnispasswort</entry>
     <entry id="wrong_htacessid">Ungültige .htaccess Datei</entry>
     <entry id="htuserdelete">Verzeichnisbenutzer wurde gelöscht</entry>
+    <entry id="htdelete">Verzeichnisschutz wurde gelöscht</entry>
+    <entry id="htaccess_notown">Diese .htaccess Datei gehört Ihnen nicht!</entry>
 
 	<entry id="surname">Zuname</entry>
 	<entry id="street">Strasse und H-nr.</entry>

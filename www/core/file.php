@@ -53,6 +53,10 @@ class file{
 	public function Store(){
 		file_put_contents($this->Filename,$this->GetContent());
 	}
+    
+    public function Trash(){
+        unlink($this->Filename);
+    }
 
 	/**
 	 * file::GetContent()

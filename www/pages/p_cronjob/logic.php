@@ -117,7 +117,7 @@ class P_cronjob extends page{
     		$Model->DeleteCronjob($id);
     		return Messagebox::Create($this->Locale->_('WillDeleted'), 'info'). new Link('cronjob', 'index', array(), $this->GlobalLocale->_('back'), true) ;
     	}catch(AppException $e){
-    		return Messagebox::Create($e->getMessage(), 'error'). new Link('domain', 'index', array(), $this->GlobalLocale->_('back'), true) ;
+    		return Messagebox::Create($e->getMessage(), 'error'). new Link('cronjob', 'index', array(), $this->GlobalLocale->_('back'), true) ;
     	}
 
     }

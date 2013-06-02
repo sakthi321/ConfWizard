@@ -101,8 +101,26 @@ EOF;
         return $F->id;
         
     }
+    public function DeleteHtAccess($id){
+        if ( !$this->Stm->Exists( 'cw_path_htaccess', array( 'id' => $id, 'user_id' => User::GetId() ) ) )
+			throw new AppException( $this->Locale->_('htaccess_notown') ) ;
+        
+        $F = new DatabaseTable( 'cw_path_htaccess',$id ) ;
+		$path = $F->path ;
+        $htpasswd_file = new file($path.'.htpasswd');
+        $htaccess_file = new file($path.'.htaccess');
+        $htpasswd_file->Trash();
+        $htaccess_file->Trash();
+        $F->Delete();
+        
+        
+    }
     
     public function GetDataFromAccessFileById($id){
+        
+        if ( !$this->Stm->Exists( 'cw_path_htaccess', array( 'id' => $id, 'user_id' => User::GetId() ) ) )
+			throw new AppException( $this->Locale->_('htaccess_notown') ) ;
+        
         $F = new DatabaseTable( 'cw_path_htaccess',$id ) ;
 		$path = $F->path ;
         $htpasswd_file = new file($path.'.htpasswd');
@@ -135,6 +153,8 @@ EOF;
           
     }
     public function DeleteHtUser($ht_id,$username){
+        if ( !$this->Stm->Exists( 'cw_path_htaccess', array( 'id' => $ht_id, 'user_id' => User::GetId() ) ) )
+			throw new AppException( $this->Locale->_('htaccess_notown') ) ;
         // get path
         $F = new DatabaseTable( 'cw_path_htaccess',$ht_id ) ;
 		$path = $F->path ;
@@ -153,6 +173,8 @@ EOF;
             
     }
     public function UpdateHtUser($ht_id,$username,$password){
+        if ( !$this->Stm->Exists( 'cw_path_htaccess', array( 'id' => $ht_id, 'user_id' => User::GetId() ) ) )
+			throw new AppException( $this->Locale->_('htaccess_notown') ) ;
         // get path
         $F = new DatabaseTable( 'cw_path_htaccess',$ht_id ) ;
 		$path = $F->path ;

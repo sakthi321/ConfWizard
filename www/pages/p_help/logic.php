@@ -56,7 +56,7 @@ class P_help extends Page{
 		return $html;
 	}
 	public function licenseAction(){
-		return '<h1>License</h1>'.nl2br(file_get_contents('license.txt'));
+		return '<h1>License</h1>'.nl2br(file_get_contents('pages/p_help/license.txt'));
 	}
 
 }

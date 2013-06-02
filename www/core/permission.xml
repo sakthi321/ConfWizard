@@ -11,7 +11,7 @@
         <page name="ajax"  allow="directory,privatekey,csr" />
         <page name="domain"  allow="index,addsubdomain,deletesubdomain,editsubdomain,edit,add" />
         <page name="customers"  allow="index,edit,add,delete" />
-        <page name="tools"  allow="index,certificate,add_htaccess,add_htuser,edit_htaccess,edit_htuser,delete_htuser" />
+        <page name="tools"  allow="index,certificate,add_htaccess,add_htuser,edit_htaccess,delete_htaccess,edit_htuser,delete_htuser" />
         <page name="email"  allow="index,addadress" />
         <page name="help" allow="index,opencategorie,license"/>
         <page name="demo" allow="index"/>
